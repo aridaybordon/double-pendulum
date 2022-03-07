@@ -1,0 +1,11 @@
+# Temporal py files
+*.pyc
+
+# Virtual environment, data and settings
+.vscode/
+env/
+data/
+
+# Test files
+double_pendulum.gif
+test.py
