@@ -1,4 +1,4 @@
-from numpy import sin, cos
+from numpy import sin, cos, pi, asarray
 
 # Vector z = [theta1, theta2, omega1, omega2]
 # with omega = dtheta/dt
@@ -40,3 +40,9 @@ def convert(z):
     pend2 = [[prev[0] + ETA*sin(i[1]), prev[1] - ETA*cos(i[1])] for prev, i in zip(pend1, z)]
 
     return pend1, pend2
+
+
+# Normalization function
+def normalize(z:list):
+    norm_z = [[i[0]/(2*pi), i[1]/(2*pi), i[2]/5, i[3]/5] for i in z]
+    return asarray(norm_z)
