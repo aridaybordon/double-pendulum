@@ -2,6 +2,6 @@
  
  Double pendulum are one of the simplest examples of chaotic systems.
  
-<p align="center" style="width: 20px; height: 20px">
+<p align="center" style="scale: .3">
  <img src="https://github.com/aridaybordon/double-pendulum/blob/main/double_pendulum.gif" alt="animated" />
 </p>
