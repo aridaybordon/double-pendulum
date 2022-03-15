@@ -1,15 +1,10 @@
 # Temporal py files
 *.pyc
 
-<<<<<<< HEAD
-# Virtual environment and settings
-.vscode/
-=======
 # Virtual environment, data and settings
 checkpoint/
 .vscode/
 data/
->>>>>>> development
 env/
 
 # Test files
