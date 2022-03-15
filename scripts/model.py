@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 from scripts.definitions import normalize
-from scripts.data import load_data, save_data
+from scripts.data import load_data, preprocessing, save_data
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
@@ -15,7 +15,7 @@ def create_model():
     model.add(Dense(units=10, activation='sigmoid'))
     model.add(Dense(units=4, activation='sigmoid'))
 
-    model.compile(loss='binary_crossentropy', optimizer='sgd', metrics='accuracy')
+    model.compile(loss='mean_squared_error', optimizer='sgd')
 
     return model
 
@@ -39,4 +39,4 @@ def train_model(model):
         )
 
     # Fit model
-    model.fit(inp_train, out_train, epochs=10, batch_size=1, callbacks=[cp_callback])
+    model.fit(inp_train, out_train, epochs=10, batch_size=1, callbacks=[cp_callback], show_accuracy=False)
