@@ -7,7 +7,7 @@ import numpy as np
 TIME    = 10    # Default time in seconds for the simulation
 
 
-def model(z, t) -> list:
+def double_pendulum_eq(z, t) -> list:
     # System of first order ODE's
     dtheta1dt = z[2]
     dtheta2dt = z[3]
@@ -20,7 +20,7 @@ def run_simulation(z0:  list=[0, 0, 2, 2], tf:   int=TIME, convert: bool=False) 
     # Run double pendulum simulation for a set of initial conditions
     # z0 -> [theta1, theta2, omega1, omega2]
 
-    z   = odeint(model, z0, np.linspace(0, tf, 30*tf))
+    z   = odeint(double_pendulum_eq, z0, np.linspace(0, tf, 30*tf))
 
     if convert:
         pend1, pend2 = convert(z)

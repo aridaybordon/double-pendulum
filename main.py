@@ -22,7 +22,7 @@ def main() -> None:
     
     # Save prediction as json
     with open('data/nn_simulation.json', 'w') as f:
-        json.dump({key: value for key, value in zip(range(300), z)}, f)
+        json.dump({key: value for key, value in enumerate(z)}, f)
 
 
 if __name__ == '__main__':
