@@ -12,12 +12,13 @@ def main() -> None:
     model.load_weights('checkpoint/cp.ckpt')
 
     # Compute NN prediction for the double pendulum move
-    z       = np.zeros(300, dtype=object)
-    z[0]    = np.array([0, 0, 3, -2])      # Initial conditions
+    z       = np.zeros(10000, dtype=object)
+    z[0]    = [2.5, 1.4, 1, -2]      # Initial conditions
 
     # Use every last iteration to predict next movement step
-    for i in range(1, 300):
-        z[i] = model.predict(z[i-1])
+    for i in range(1, 1000):
+        z[i] = model.predict([z[i-1]])
+        print(f"Creating movement {(i/1000):.2%}", end='\r')
     
     # Save prediction as json
     with open('data/nn_simulation.json', 'w') as f:

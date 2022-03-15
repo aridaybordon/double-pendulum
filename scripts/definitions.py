@@ -43,6 +43,7 @@ def convert(z):
 
 
 # Normalization function
-def normalize(z:list):
+def normalize(z: list):
     norm_z = [[i[0]/(2*pi), i[1]/(2*pi), i[2]/5, i[3]/5] for i in z]
     return asarray(norm_z)
+    

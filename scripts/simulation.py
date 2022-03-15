@@ -1,11 +1,10 @@
-from definitions import compute_domega1dt, compute_domega2dt, convert
+from scripts.definitions import compute_domega1dt, compute_domega2dt, convert
 from scipy.integrate import odeint
 
 import numpy as np
 
 
-FRAMES  = 300   # Number of frames
-TIME    = 10    # Total time in seconds for the simulation
+TIME    = 10    # Default time in seconds for the simulation
 
 
 def model(z, t) -> list:
@@ -17,16 +16,19 @@ def model(z, t) -> list:
     return [dtheta1dt, dtheta2dt, domega1dt, domega2dt]
 
 
-def run_simulation(z0 = [0, 0, 3, 3]) -> list:
+def run_simulation(z0:  list=[0, 0, 2, 2], tf:   int=TIME, convert: bool=False) -> list:
     # Run double pendulum simulation for a set of initial conditions
     # z0 -> [theta1, theta2, omega1, omega2]
 
-    t   = np.linspace(0, TIME, FRAMES)
-    z   = odeint(model, z0, t)
+    z   = odeint(model, z0, np.linspace(0, tf, 30*tf))
 
-    pend1, pend2 = convert(z)
+    if convert:
+        pend1, pend2 = convert(z)
 
-    pend1 = [[val[0] for val in pend1], [val[1] for val in pend1]]
-    pend2 = [[val[0] for val in pend2], [val[1] for val in pend2]]
+        pend1 = [[val[0] for val in pend1], [val[1] for val in pend1]]
+        pend2 = [[val[0] for val in pend2], [val[1] for val in pend2]]
 
-    return pend1, pend2
+        return pend1, pend2
+    
+    else:
+        return z
