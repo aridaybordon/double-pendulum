@@ -2,9 +2,10 @@
 *.pyc
 
 # Virtual environment, data and settings
+checkpoint/
 .vscode/
-env/
 data/
+env/
 
 # Test files
 double_pendulum.gif
