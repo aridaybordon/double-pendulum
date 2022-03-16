@@ -9,7 +9,7 @@ import json
 def generate_data() -> list:
     # Generate input and output raw data
     z0           = [2*np.pi*random(), 2*np.pi*random(), 5*(2*random()-1), 5*(2*random()-1)]
-    z            = run_simulation(z0=z0, tf=100)
+    z            = run_simulation(z0=z0, tf=10000)
     return z
 
 
@@ -27,9 +27,9 @@ def save_data(filename: str) -> None:
         print('=====================================\n')
         
         z = generate_data()
-        print('Data generated!')
+        print('Data generated!\n')
 
-        json.dump({key: value.tolist() for key, value in enumerate(preprocessing(z))}, f)
+        json.dump({key: value for key, value in enumerate(preprocessing(z))}, f)
 
 
 def load_data(filename) -> list:
