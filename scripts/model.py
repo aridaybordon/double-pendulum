@@ -1,17 +1,20 @@
+import numpy as np
 import tensorflow as tf
 
 from scripts.definitions import normalize
-from scripts.data import load_data, preprocessing, save_data
+from scripts.data import load_data, preprocessing, generate_training_data
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 
+import json
 
 def create_model():
     # Create NN model (4 inputs - 2 hidden layers (5 neurons/layer) - 4 outputs)
     model = Sequential()
     
     model.add(Dense(units=10, activation='relu', input_dim=4))
+    model.add(Dense(units=10, activation='relu'))
     model.add(Dense(units=10, activation='relu'))
     model.add(Dense(units=4, activation='linear'))
 
@@ -22,7 +25,7 @@ def create_model():
 
 def train_model(model):
     # Create training data
-    #save_data('train')
+    generate_training_data('train')
 
     # Load and normalize training data
     inp_train, out_train    = load_data('train')
@@ -40,3 +43,29 @@ def train_model(model):
 
     # Fit model
     model.fit(inp_train, out_train, epochs=5, batch_size=1, callbacks=[cp_callback])
+
+
+def training_routine():
+    model = create_model()
+    model.load_weights("checkpoint/cp.ckpt")
+    train_model(model)
+
+    return model
+
+
+def make_and_save_prediction(model, z0: list):
+    # Compute NN prediction for the double pendulum move from initial condition z0
+    pred_size   = 300 
+    z           = np.zeros(pred_size, dtype=object)
+    z[0]        = z0
+
+    # Use every last iteration to predict next movement step
+    for i in range(1, pred_size):
+        z[i] = model.predict([z[i-1]])
+        print(f"Creating movement {(i/pred_size):.2%}", end='\r')
+    
+    z = z[1:]
+
+    # Save prediction as json
+    with open('data/nn_simulation.json', 'w') as f:
+        json.dump({key: value.tolist()[0] for key, value in enumerate(z)}, f)

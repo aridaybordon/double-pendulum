@@ -16,13 +16,13 @@ def double_pendulum_eq(z, t) -> list:
     return [dtheta1dt, dtheta2dt, domega1dt, domega2dt]
 
 
-def run_simulation(z0:  list=[0, 0, 2, 2], tf:   int=TIME, convert: bool=False) -> list:
+def run_simulation(z0:  list=[0, 0, 2, 2], tf:   int=TIME, convert_data: bool=False) -> list:
     # Run double pendulum simulation for a set of initial conditions
     # z0 -> [theta1, theta2, omega1, omega2]
 
     z   = odeint(double_pendulum_eq, z0, np.linspace(0, tf, 30*tf))
 
-    if convert:
+    if convert_data:
         pend1, pend2 = convert(z)
 
         pend1 = [[val[0] for val in pend1], [val[1] for val in pend1]]
