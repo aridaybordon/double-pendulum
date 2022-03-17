@@ -13,9 +13,10 @@ def create_model():
     # Create NN model (4 inputs - 2 hidden layers (5 neurons/layer) - 4 outputs)
     model = Sequential()
     
-    model.add(Dense(units=100, activation='sigmoid', input_dim=4))
-    model.add(Dense(units=150, activation='sigmoid'))
-    model.add(Dense(units=100, activation='sigmoid'))
+    model.add(Dense(units=1000, activation='sigmoid', input_dim=4))
+    model.add(Dense(units=1500, activation='sigmoid'))
+    model.add(Dense(units=1500, activation='sigmoid'))
+    model.add(Dense(units=1000, activation='sigmoid'))
     model.add(Dense(units=4, activation='linear'))
 
     model.compile(loss='mean_squared_error', optimizer='sgd')
@@ -42,7 +43,7 @@ def train_model(model, create_data: bool=True) -> None:
         )
 
     # Fit model
-    model.fit(inp_train, out_train, epochs=1, batch_size=1, callbacks=[cp_callback])
+    model.fit(inp_train, out_train, epochs=10, batch_size=1, callbacks=[cp_callback])
 
 
 def training_routine(load_weights=True):
@@ -51,7 +52,7 @@ def training_routine(load_weights=True):
     if load_weights:
         model.load_weights("checkpoint/cp.ckpt")
     
-    train_model(model, create_data=False)
+    train_model(model, create_data=True)
 
     return model
 

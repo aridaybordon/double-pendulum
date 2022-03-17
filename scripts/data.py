@@ -8,8 +8,7 @@ import json
 
 def generate_data() -> list:
     # Generate input and output raw data
-    #z0           = [2*np.pi*random(), 2*np.pi*random(), 10*(2*random()-1), 10*(2*random()-1)]
-    z0           = [3, 4, 0, 0]
+    z0           = [2*np.pi*random(), 2*np.pi*random(), 10*(2*random()-1), 10*(2*random()-1)]
     z            = run_simulation(z0=z0, tf=100)
     return z
 
