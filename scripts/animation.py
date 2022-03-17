@@ -11,7 +11,7 @@ def animate(z: list=[], from_simulation: bool=True, filename: str="double_pendul
     # Animate a double pendulum simulation
     if from_simulation:
         # Obtain data from simulation
-        pend1, pend2 = run_simulation(z0 = [0, 0, 3, 4], convert_data=True)
+        pend1, pend2 = run_simulation(z0 = [3, 4, 0, 0], convert_data=True)
     else:
         # Obtain data from input
         pend1, pend2 = convert(z)
