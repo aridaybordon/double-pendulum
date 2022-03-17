@@ -6,14 +6,14 @@ def main() -> None:
     # ==================================================================
     # Load model, train it with newly created data and simulate movement
     # ==================================================================
-    iterations = 1000
+    iterations = 10000
 
-    for i in range(iterations):
+    for i in range(iterations+1):
         print(f"\nIteration {i+1} of {iterations}\n")
         # Create training data and fit model
         model = training_routine(load_weights=i)
 
-        if i%50 == 0:
+        if i%100 == 0:
             # Draw NN prediction
             z0 = [3, 4, 0, 0] # Initial conditions
             make_and_save_prediction(model, z0)

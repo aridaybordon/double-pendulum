@@ -13,9 +13,9 @@ def create_model():
     # Create NN model (4 inputs - 2 hidden layers (5 neurons/layer) - 4 outputs)
     model = Sequential()
     
-    model.add(Dense(units=20, activation='sigmoid', input_dim=4))
-    model.add(Dense(units=20, activation='sigmoid'))
-    model.add(Dense(units=20, activation='sigmoid'))
+    model.add(Dense(units=100, activation='sigmoid', input_dim=4))
+    model.add(Dense(units=150, activation='sigmoid'))
+    model.add(Dense(units=100, activation='sigmoid'))
     model.add(Dense(units=4, activation='linear'))
 
     model.compile(loss='mean_squared_error', optimizer='sgd')
