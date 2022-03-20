@@ -1,7 +1,7 @@
 import numpy as np
 import tensorflow as tf
 
-from scripts.data import load_data, generate_training_data
+from scripts.data import load_training_data, generate_training_data
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
@@ -13,10 +13,13 @@ def create_model():
     # Create NN model (4 inputs - 2 hidden layers (5 neurons/layer) - 4 outputs)
     model = Sequential()
     
-    model.add(Dense(units=1000, activation='relu', input_dim=4))
-    model.add(Dense(units=1500, activation='relu'))
-    model.add(Dense(units=1500, activation='relu'))
+    model.add(Dense(units=500, activation='relu', input_dim=4))
     model.add(Dense(units=1000, activation='relu'))
+    model.add(Dense(units=1000, activation='relu'))
+    model.add(Dense(units=1000, activation='relu'))
+    model.add(Dense(units=1000, activation='relu'))
+    model.add(Dense(units=1000, activation='relu'))
+    model.add(Dense(units=500, activation='relu'))
     model.add(Dense(units=4, activation='linear'))
 
     model.compile(loss='mean_squared_error', optimizer='sgd')
@@ -27,10 +30,10 @@ def create_model():
 def train_model(model, create_data: bool=True) -> None:
     # Create training data
     if create_data:
-        generate_training_data('train')
+        generate_training_data()
 
     # Load and normalize training data
-    inp_train, out_train    = load_data('train')
+    inp_train, out_train    = load_training_data()
 
     # Define checkpoint path
     checkpoint_path = "checkpoint/cp.ckpt"
@@ -39,11 +42,11 @@ def train_model(model, create_data: bool=True) -> None:
     cp_callback = tf.keras.callbacks.ModelCheckpoint(
         filepath=checkpoint_path, 
         save_weights_only=True,
-        verbose=1
+        verbose=0
         )
 
     # Fit model
-    model.fit(inp_train, out_train, epochs=10, batch_size=1, callbacks=[cp_callback])
+    model.fit(inp_train, out_train, epochs=100, batch_size=128, callbacks=[cp_callback])
 
 
 def training_routine(load_weights=True):
