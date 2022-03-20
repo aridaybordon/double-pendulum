@@ -36,10 +36,10 @@ def generate_training_data(verbose=True) -> None:
             print(f"Completed {(_+1)/n_iter:.2%}", end="\r")
 
     with open("data/training_output.json", "w") as f:
-        json.dump({key: value for key, value in enumerate(preprocessing(test_out))}, f)
+        json.dump({key: value for key, value in enumerate(test_out)}, f)
     
     with open("data/training_input.json", "w") as f:
-        json.dump({key: value for key, value in enumerate(preprocessing(test_inp))}, f)
+        json.dump({key: value for key, value in enumerate(test_inp)}, f)
 
 
 def load_training_data() -> list:
