@@ -1,4 +1,4 @@
-from numpy import sin, cos, pi, asarray
+from numpy import sin, cos
 
 # Vector z = [theta1, theta2, omega1, omega2]
 # with omega = dtheta/dt
