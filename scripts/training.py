@@ -10,7 +10,7 @@ import json
 
 
 def create_model():
-    # Create NN model (4 inputs - 2 hidden layers (5 neurons/layer) - 4 outputs)
+    # Create NN model (4 inputs - 7 hidden layers (1000 neurons/layer) - 4 outputs)
     model = Sequential()
     
     model.add(Dense(units=500, activation='relu', input_dim=4))
@@ -27,9 +27,12 @@ def create_model():
     return model
 
 
-def train_model(model, create_data: bool=True) -> None:
-    # Create training data
-    if create_data:
+def train_model(model, create_data: bool=True, load_weights: bool=True) -> None:
+    model = create_model()
+    
+    if load_weights:
+        model.load_weights("checkpoint/cp.ckpt")
+    elif create_data:
         generate_training_data()
 
     # Load and normalize training data
@@ -47,15 +50,6 @@ def train_model(model, create_data: bool=True) -> None:
 
     # Fit model
     model.fit(inp_train, out_train, epochs=100, batch_size=128, callbacks=[cp_callback])
-
-
-def training_routine(load_weights=True):
-    model = create_model()
-    
-    if load_weights:
-        model.load_weights("checkpoint/cp.ckpt")
-    
-    train_model(model, create_data=True)
 
     return model
 
