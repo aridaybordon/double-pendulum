@@ -1,7 +1,7 @@
+import numpy as np
+
 from scripts.definitions import compute_domega1dt, compute_domega2dt, convert
 from scipy.integrate import odeint
-
-import numpy as np
 
 
 TIME    = 10    # Default time in seconds for the simulation

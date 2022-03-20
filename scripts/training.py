@@ -3,8 +3,8 @@ import tensorflow as tf
 
 from scripts.data import load_training_data, generate_training_data
 
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
+from keras.models import Sequential
+from keras.layers import Dense
 
 import json
 
