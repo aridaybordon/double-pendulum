@@ -27,7 +27,7 @@ def create_model():
     return model
 
 
-def train_model(model, create_data: bool=True, load_weights: bool=True) -> None:
+def train_model(create_data: bool=True, load_weights: bool=True) -> None:
     model = create_model()
     
     if load_weights:
