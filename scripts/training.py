@@ -13,13 +13,11 @@ def create_model():
     # Create NN model (4 inputs - 7 hidden layers (1000 neurons/layer) - 4 outputs)
     model = Sequential()
     
-    model.add(Dense(units=500, activation='relu', input_dim=4))
+    model.add(Dense(units=1000, activation='relu', input_dim=4))
+    model.add(Dense(units=2000, activation='relu'))
+    model.add(Dense(units=2000, activation='relu'))
+    model.add(Dense(units=2000, activation='relu'))
     model.add(Dense(units=1000, activation='relu'))
-    model.add(Dense(units=1000, activation='relu'))
-    model.add(Dense(units=1000, activation='relu'))
-    model.add(Dense(units=1000, activation='relu'))
-    model.add(Dense(units=1000, activation='relu'))
-    model.add(Dense(units=500, activation='relu'))
     model.add(Dense(units=4, activation='linear'))
 
     model.compile(loss='mean_squared_error', optimizer='sgd')
@@ -49,7 +47,7 @@ def train_model(create_data: bool=True, load_weights: bool=True) -> None:
         )
 
     # Fit model
-    model.fit(inp_train, out_train, epochs=100, batch_size=128, callbacks=[cp_callback])
+    model.fit(inp_train, out_train, epochs=10, batch_size=128, callbacks=[cp_callback])
 
     return model
 
@@ -65,8 +63,6 @@ def make_and_save_prediction(model, z0: list):
         z[i] = model.predict([z[i-1]])
         print(f"Creating movement {(i/(pred_size-1)):.2%}", end='\r')
     
-    z = z[1:]
-
     # Save prediction as json
     with open('data/nn_simulation.json', 'w') as f:
-        json.dump({key: value.tolist()[0] for key, value in enumerate(z)}, f)
+        json.dump({key: value.tolist()[0] for key, value in enumerate(z[1:])}, f)

@@ -6,7 +6,7 @@ from scripts.simulation import run_simulation
 import json
 
 
-def generate_data(time: float=1) -> list:
+def generate_data(time: float=10) -> list:
     # Generate input and output raw data
     z0 = [2*np.pi*random(), 2*np.pi*random(), 2 * (2*random()-1), 2*(2*random()-1)]
     z = run_simulation(z0=z0, tf=time)
@@ -20,7 +20,7 @@ def preprocessing(z) -> list:
 
 def generate_training_data(verbose=True) -> None:
     # Save training data in json
-    n_iter = 100000 # -> Generates 1 day of training data
+    n_iter = 1000 # -> Generates 1 day of training data
     test_inp, test_out = [], []
 
     if verbose:
@@ -36,7 +36,7 @@ def generate_training_data(verbose=True) -> None:
             print(f"Completed {(_+1)/n_iter:.2%}", end="\r")
 
     with open("data/training_output.json", "w") as f:
-        json.dump({key: value for key, value in enumerate(test_out)}, f)
+        json.dump({key: value for key, value in enumerate(preprocessing(test_out))}, f)
     
     with open("data/training_input.json", "w") as f:
         json.dump({key: value for key, value in enumerate(test_inp)}, f)
