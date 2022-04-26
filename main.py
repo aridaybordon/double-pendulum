@@ -7,7 +7,7 @@ def main() -> None:
     #    Load model, train it with newly created data and simulate movement
     # ========================================================================
 
-    model = train_model(load_weights=False)
+    model = train_model(load_weights=False, create_data=True)
 
     # Draw NN prediction
     z0 = [3, 4, 0, 0] # Initial conditions
