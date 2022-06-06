@@ -42,6 +42,11 @@ def potential_energy(z):
     return -g * ((1 + EPS) * ETA * cos(theta1) + cos(theta2))
 
 
+def total_energy(z) -> float:
+    "Compute energy for a given configuration "
+    return kinetic_energy(z) + potential_energy(z)
+
+
 # Variations of omega1 and omega2
 def compute_domega1dt(z):
     "Compute the variation of theta1"
