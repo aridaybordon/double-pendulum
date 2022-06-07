@@ -8,7 +8,7 @@ import json
 
 def generate_data(time: float=10) -> list:
     # Generate input and output raw data
-    z0 = [2*np.pi*random(), 2*np.pi*random(), 2 * (2*random()-1), 2*(2*random()-1)]
+    z0 = [2*np.pi*random(), 2*np.pi*random(), 5*(2*random()-1), 5*(2*random()-1)]
     z = run_simulation(z0=z0, tf=time)
     return z
 
@@ -18,16 +18,15 @@ def preprocessing(z) -> list:
     return [[np.mod(z_pre[0], 2*np.pi), np.mod(z_pre[1], 2*np.pi), z_pre[2], z_pre[3]] for z_pre in z]
 
 
-def generate_training_data(verbose=True) -> None:
+def generate_training_data(verbose: bool=True, n_iter: int=50000) -> None:
     # Save training data in json
-    n_iter = 1000 # -> Generates 1 day of training data
     test_inp, test_out = [], []
 
     if verbose:
         print("\nGenerating training data:")
 
     for _ in range(n_iter):
-        z = generate_data()
+        z = generate_data(time=1)
 
         [test_inp.append(inp.tolist()) for inp in z[:-1]]
         [test_out.append(out.tolist()) for out in z[1:]]
