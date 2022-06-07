@@ -34,13 +34,16 @@ def load_model():
     return model
 
 
-def train_model(create_data: bool = True, load_weights: bool = True) -> None:
+def train_model(create_data: bool = True,
+                load_weights: bool = True,
+                n_iter: int = 50000,
+                batch_size: int = 128) -> None:
     model = create_model()
 
     if load_weights:
         model.load_weights("checkpoint/cp.ckpt")
     if create_data:
-        generate_training_data()
+        generate_training_data(n_iter=n_iter)
 
     # Load and normalize training data
     inp_train, out_train = load_training_data()
@@ -56,8 +59,8 @@ def train_model(create_data: bool = True, load_weights: bool = True) -> None:
     # Fit model
     model.fit(inp_train,
               out_train,
-              epochs=10,
-              batch_size=128,
+              epochs=100,
+              batch_size=batch_size,
               callbacks=[cp_callback])
 
     return model
@@ -74,7 +77,7 @@ def make_and_save_prediction(model, z0: list):
     # Use every last iteration to predict next movement step
     for i in range(1, pred_size):
         #z[i] = correct_configuration(model.predict([z[i - 1]]), E0)
-        pred = model.predict([z[i-1]])
+        pred = model.predict([z[i - 1]])
         z[i] = np.asarray(correct_configuration(pred[0], E0))
         print(f"Creating movement {(i/(pred_size-1)):.2%}", end='\r')
 
