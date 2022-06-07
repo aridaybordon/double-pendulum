@@ -2,8 +2,8 @@
 *.pyc
 
 # Virtual environment, data and settings
-checkpoint/
 .vscode/
+checkpoint/
 data/
 env/
 
