@@ -1,11 +1,11 @@
-from numpy import sqrt, asarray
+from numpy import sqrt
 from scripts.definitions import kinetic_energy, potential_energy
 
 
 def compute_factor_k(z, E0) -> float:
     "Compute the proportionality factor to guarantee energy conservation"
     Tt, Vt = kinetic_energy(z), potential_energy(z)
-    return sqrt((E0 - Vt) / Tt)
+    return sqrt(abs(E0 - Vt) / Tt)
 
 
 def correct_configuration(z, E0) -> list:
